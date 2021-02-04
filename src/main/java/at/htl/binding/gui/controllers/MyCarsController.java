@@ -52,6 +52,12 @@ public class MyCarsController {
         initCarForm();
     }
 
+    private void clearCarForm() {
+        modelTextField.setText("");
+
+
+    }
+
     private void initListView() {
         Comparator<Car> comparator = Comparator.comparing(Car::getMaker).thenComparing(Car::getModel);
         carsListView.setItems(cars.sorted(comparator));
@@ -98,6 +104,7 @@ public class MyCarsController {
                 electricCheckBox.isSelected()
         );
         cars.add(car);
+        clearCarForm();
     }
 
 }
