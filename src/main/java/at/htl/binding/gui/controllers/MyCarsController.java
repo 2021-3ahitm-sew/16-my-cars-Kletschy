@@ -2,12 +2,15 @@ package at.htl.binding.gui.controllers;
 
 import at.htl.binding.model.cars.Car;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.input.InputEvent;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -50,12 +53,25 @@ public class MyCarsController {
         initListView();
         bindCheckBoxes();
         initCarForm();
+        filterCheckBoxEvents();
+        
     }
+
+
 
     private void clearCarForm() {
         modelTextField.setText("");
+        electricCheckBox.setSelected(false);
+        makerComboBox.getSelectionModel().select(-1); //only clears - dont shows prompt text
+        creationYearSpinner.getValueFactory().setValue(2018);
+        registrationDatePicker.setValue(null);
+    }
 
-
+    private void filterCheckBoxEvents() {
+        firstCheckBox.addEventFilter(InputEvent.ANY, inputEvent -> inputEvent.consume());
+        lastCheckBox.addEventFilter(InputEvent.ANY, inputEvent -> inputEvent.consume());
+        firstHalfCheckBox.addEventFilter(InputEvent.ANY, inputEvent -> inputEvent.consume());
+        secondHalfCheckBox.addEventFilter(InputEvent.ANY, inputEvent -> inputEvent.consume());
     }
 
     private void initListView() {
