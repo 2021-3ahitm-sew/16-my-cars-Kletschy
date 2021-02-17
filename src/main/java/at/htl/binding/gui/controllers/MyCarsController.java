@@ -54,10 +54,17 @@ public class MyCarsController {
         bindCheckBoxes();
         initCarForm();
         filterCheckBoxEvents();
-        
+        CheckRegYear();
     }
 
-
+    private void CheckRegYear() {
+        IntegerBinding registrationYear = Bindings.selectInteger(registrationDatePicker.valueProperty(), "year");
+        IntegerBinding creationYear = Bindings.selectInteger(creationYearSpinner.valueProperty());
+        addButton.disableProperty().bind(
+                registrationYear.lessThan(creationYear)
+        );
+        
+    }
 
     private void clearCarForm() {
         modelTextField.setText("");
